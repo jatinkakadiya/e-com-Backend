@@ -3,7 +3,7 @@ const { default: mongoose } = require("mongoose");
 
 async function ConnectDb(){
     try {
-        await mongoose.connect("mongodb://127.0.0.1:27017/product")
+        await mongoose.connect("mongodb+srv://jatinkakadiya234:iqD6w9vBN1nOQuw5@cluster0.pmp8n.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
         console.log("Db Conneted")
     } catch (error) {
         console.log("Db Connection Loss")

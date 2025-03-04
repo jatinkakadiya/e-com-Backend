@@ -23,7 +23,6 @@ app.use(cors({
 }));
 
 
-let prot = process.env.PORT || 5000
 ConnectDb()
 // ProductController.Insartmany()
 app.use("/product",produtrouter)
@@ -34,6 +33,7 @@ app.use("/coupon",couponRouter)
 app.use("/address",AddressRouter)
 app.use("/order",OrderRouter)
 app.use("/user",userRouter)
-app.listen(prot,()=>{
-    console.log(`sarver is started ${prot}`);
-})
+const port = process.env.PORT || 8888; // Use the port provided by Render
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
+});

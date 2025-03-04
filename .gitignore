@@ -52,5 +52,5 @@ _ReSharper*/
 
 node_modules
 
-.env
-.gitignore
+*.env
+*.gitignore
