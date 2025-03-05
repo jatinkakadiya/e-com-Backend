@@ -4,13 +4,14 @@ let key = {
 }
 const Razorpay = require("razorpay")
 const orderModel = require("./Order.model")
+const userModel = require("../User/UserModel")
 const rozorpay = new Razorpay({ key_id: key.key_id, key_secret: key.key_secrate })
 
 const OrderController = {
     CreateOrder: async (req, res) => {
         try {
-            let { prodcut, totlePrice, paymentMethod, address, totalDiscount } = req.body
-            if (!prodcut || !totlePrice || !paymentMethod || !address || !totalDiscount) return res.status(404).send({ message: "missing dependency" })
+            let { user, prodcut, totlePrice, paymentMethod, address, totalDiscount } = req.body
+            if (!prodcut || !totlePrice || !paymentMethod || !address || !totalDiscount || !user) return res.status(404).send({ message: "missing dependency" })
             let result = await orderModel.create({ ...req.body })
             if (!result) return res.status(500).send({ message: "Somthing went wrong" })
             result = result._doc
@@ -50,13 +51,24 @@ const OrderController = {
     getorderByProduct: async (req, res) => {
         try {
             let { id } = req.params
-            const result = await orderModel.findOne({ _id: id }).populate("address")
+            const result = await orderModel.findOne({ _id: id }).populate("address").populate("user")
             if (!result) return res.status(500).send({ message: "somthing went wrong" })
-            return res.status(200).send({message:"sucssesc",data:result})
+            return res.status(200).send({ message: "sucssesc", data: result })
         } catch (error) {
 
             console.log(error);
         }
+    },
+    listOrder: async (req, res) => {
+      try {
+        const { id } = req.body
+        user = await userModel.findOne({ _id: id })
+        if(user.Role==="admin") {
+            
+        } 
+      } catch (error) {
+        console.log(error);
+      }
     }
 
 }

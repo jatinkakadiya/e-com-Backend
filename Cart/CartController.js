@@ -4,9 +4,9 @@ const ProductModel = require("../Product/ProductModel");
 const CartController = {
     AddToCart: async (req, res) => {
         try {
-            let { productId, Qty } = req.body
-            if (!productId || !Qty) return res.status(404).send({ mesage: "Missing dependecy" })
-            let result = await CartModel.findOne({ productId: productId })
+            let { productId, Qty,user } = req.body
+            if (!productId || !Qty|| !user) return res.status(404).send({ mesage: "Missing dependecy" })
+            let result = await CartModel.findOne({ productId: productId,user:user })
             if (result) {
                 result = result._doc
                 Qty = result.Qty + Qty
@@ -23,7 +23,8 @@ const CartController = {
     },
     ListCartItem: async (req, res) => {
         try {
-            const cartItems = await CartModel.find();
+            let {user} =  req.params
+            const cartItems = await CartModel.find({user:user});
             const products = await ProductModel.find();
             let matchedProducts = [];
     
@@ -90,7 +91,8 @@ const CartController = {
     },
     AllCartItemRemove: async (req, res) => {
         try {
-            const result = await CartModel.deleteMany()
+            const {id} = req.params
+            const result = await CartModel.deleteMany({user:id})
             if (!result) return res.status(500).send({ message: "somthing went wrong" })
             return res.status(200).send({ message: "sucssesc" })
         } catch (error) {
