@@ -17,7 +17,7 @@ require("dotenv").config()
 const app = expres()
 app.use(expres.json())
 app.use(cookieParser());
-const blockedOrigins = ['http://localhost:5173', 'http://localhost:3000'];
+const blockedOrigins = ['http://localhost:3000', 'http://localhost:5173'];
 
 app.use(cors({
   origin: function (origin, callback) {
@@ -26,9 +26,13 @@ app.use(cors({
     } else {
       callback(new Error('This origin is not allowed by CORS'));
     }
-  }
+   
+  },
+  credentials: true  
 }));
 
+credentials: true   
+origin: 'http://localhost:3000'|| "http://localhost:3000",
 ConnectDb()
 // ProductController.Insartmany()
 app.use("/product",produtrouter)
