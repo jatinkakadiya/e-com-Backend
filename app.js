@@ -18,7 +18,7 @@ const app = expres()
 app.use(expres.json())
 app.use(cookieParser());
 app.use(cors({
-  origin: 'http://localhost:3000',  // Frontend URL
+  origin: 'http://localhost:3000'|| "http://localhost:5173",  // Frontend URL
   credentials: true                // Allow cookies to be sent/received
 }));
 
