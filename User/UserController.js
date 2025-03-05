@@ -32,19 +32,19 @@ let userController = {
             if (!isMatch) return res.status(401).json({ message: "Invalid credentials" });
 
             // Create JWT token
-            const payload = { _id: user._id, Email: user.Email };
+            const payload = { _id: user._id, Email: user.Email, Role: user.Role, Name: user.Name };
             const token = jwt.sign(payload, process.env.jwt_secrate, { expiresIn: "3d" });
 
             // Set token in cookies
             res.cookie('token', token, {
                 httpOnly: true,  // Token is not accessible via JavaScript
-                secure:'production',  // Secure cookies in production
+                secure: 'production',  // Secure cookies in production
                 maxAge: 3600000,  // 1 hour expiration
-              });
-            
-              res.send({ message: 'Logged in successfully',token });
+            });
 
-           
+            res.send({ message: 'Logged in successfully', token });
+
+
         } catch (error) {
             console.error("Login Error:", error);
             res.status(500).json({ message: "Internal Server Error" });

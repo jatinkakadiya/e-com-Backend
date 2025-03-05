@@ -33,6 +33,7 @@ app.use("/coupon",couponRouter)
 app.use("/address",AddressRouter)
 app.use("/order",OrderRouter)
 app.use("/user",userRouter)
+// VariantController.InsatMany()
 const port = process.env.PORT || 8888; // Use the port provided by Render
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);

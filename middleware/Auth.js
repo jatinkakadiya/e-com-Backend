@@ -6,7 +6,7 @@ const Auth = async (req, res, next) => {
     try {
         // Get token from cookies
         const token = req.cookies.token;
-    
+        console.log(req.cookies);
         if (!token) {
             return res.status(401).json({ message: "Access Denied! No token provided." });
         }
@@ -31,32 +31,32 @@ const Auth = async (req, res, next) => {
         return res.status(500).json({ message: "Internal Server Error" });
     }
 };
-const RoleAuth = async(req,res,next)=>{
+const RoleAuth = async (req, res, next) => {
     try {
         // Get token from cookies
         const token = req.cookies.token;
-       
+
         if (!token) {
             return res.status(401).json({ message: "Access Denied! No token provided." });
         }
-
         // Verify JWT token
+        console.log(token);
         const decoded = jwt.verify(token, process.env.jwt_secrate);
         if (!decoded) {
             return res.status(401).json({ message: "Invalid token. Authentication failed!" });
         }
+        console.log(decoded);
 
         // Find user in the database (excluding password)
         const user = await userModel.findById(decoded._id).select("-Password");
         if (!user) {
             return res.status(401).json({ message: "User not found!" });
         }
-
         // Attach user data to request
-        if(user.Role==="admin"){
+        if (user.Role === "admin") {
             next()
-        }else{
-            return res.status(401).json({ message: "Invalid token. Authentication failed!" +"" });
+        } else {
+            return res.status(401).json({ message: "Invalid token. Authentication failed!" + "" });
 
         }
         req.user = user;
@@ -66,4 +66,4 @@ const RoleAuth = async(req,res,next)=>{
     }
 }
 
-module.exports = {Auth,RoleAuth};
+module.exports = { Auth, RoleAuth };
