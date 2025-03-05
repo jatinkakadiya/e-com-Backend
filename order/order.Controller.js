@@ -60,15 +60,19 @@ const OrderController = {
         }
     },
     listOrder: async (req, res) => {
-      try {
-        const { id } = req.body
-        user = await userModel.findOne({ _id: id })
-        if(user.Role==="admin") {
-            
-        } 
-      } catch (error) {
-        console.log(error);
-      }
+        try {
+            const { id } = req.body
+            user = await userModel.findOne({ _id: id })
+            if (user.Role === "admin") {
+                const result = await orderModel.find()
+                if (!result) return res.status(404).send({ message: "somthing went wrong" })
+                return res.status(200).send({message:"sucses",result})
+            }else{
+                return res.status(404).send({message:"user is no accsess"})
+            }
+        } catch (error) {
+            console.log(error);
+        }
     }
 
 }
