@@ -64,12 +64,34 @@ const OrderController = {
             const { id } = req.body
             user = await userModel.findOne({ _id: id })
             if (user.Role === "admin") {
-                const result = await orderModel.find()
+                const result = await orderModel.find().populate("user").populate("address")
                 if (!result) return res.status(404).send({ message: "somthing went wrong" })
-                return res.status(200).send({message:"sucses",result})
-            }else{
-                return res.status(404).send({message:"user is no accsess"})
+                return res.status(200).send({ message: "sucses", result })
+            } else {
+                return res.status(404).send({ message: "user is no accsess" })
             }
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    updateStatus: async (req, res) => {
+        try {
+            const { OrderId } = req.params
+            const { deliveryStatus } = req.body
+            if (!OrderId || !deliveryStatus) return res.status(404).send({ message: "missing dependecy" })
+            const result = await orderModel.findByIdAndUpdate({ _id: OrderId }, { deliveryStatus: deliveryStatus })
+            if (!result) return res.status(500).send({ message: "somthing went wrong" })
+            return res.status(200).send({ message: "sucssese" })
+        } catch (error) {
+            console.log(error);
+        }
+    },
+    Orderhistory: async (req, res) => {
+        try {
+            const { userid } = req.body
+            const result = await orderModel.find({ user: userid }).populate("user").populate("address")
+            if (!result) return res.status(500).send({ message: "somthing went wrong" })
+            return res.status(200).send({ message: "susscss", data: result })
         } catch (error) {
             console.log(error);
         }

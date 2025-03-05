@@ -84,15 +84,7 @@ const ProductController = {
             console.log(error);
         }
     },
-    Insartmany: async (req, res) => {
-        try {
-            await ProductModel.insertMany(products)
-            console.log("add");
-        } catch (error) {
-            console.log(error);
-
-        }
-    }
+  
 }
 
 module.exports = ProductController

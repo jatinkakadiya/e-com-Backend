@@ -1,31 +1,5 @@
 const { default: mongoose } = require("mongoose");
-// let reletetProduct = new mongoose.Schema({
-//     _id: {
-//         type: String,
-//         required: true
-//     },
-//     color: {
-//         type: String,
-//         required: true
-//     },
-//     file: {
-//         type: String,
-//         required: true
-//     },
-//     size: {
-//         type: String,
-//         required: true
 
-//     },
-//     price: {
-//         type: Number,
-//         required: true
-//     },
-//     title: {
-//         type: String,
-//         required: true
-//     }
-// })
 const ProuctSchema = new mongoose.Schema({
     name: {
         type: String,

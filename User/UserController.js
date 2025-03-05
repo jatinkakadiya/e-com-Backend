@@ -49,7 +49,8 @@ let userController = {
             console.error("Login Error:", error);
             res.status(500).json({ message: "Internal Server Error" });
         }
-    }
+    },
+    
 }
 
 
