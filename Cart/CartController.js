@@ -10,11 +10,11 @@ const CartController = {
             if (result) {
                 result = result._doc
                 Qty = result.Qty + Qty
-                const UPdateProduct = await CartModel.updateOne({ productId: productId }, { Qty: Qty })
+                const UPdateProduct = await CartModel.updateOne({ productId: productId ,user: user}, { Qty: Qty })
                 if (!UPdateProduct || UPdateProduct.modifiedCount <= 0) return res.status(500).send({ mesaage: "Somthing went wrong" })
                 return res.status(200).send({ message: "Success" })
             }
-            let create = await CartModel.create({ productId: productId, Qty: Qty })
+            let create = await CartModel.create({ productId: productId, Qty: Qty ,user:user})
             if (!create) return res.status(500).send({ message: "Somthing went wrong" })
             return res.status(200).send({ message: "Success" })
         } catch (error) {
