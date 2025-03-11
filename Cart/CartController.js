@@ -23,7 +23,8 @@ const CartController = {
     },
      ListCartItem: async (req, res) => {
         try {
-            let { user } = req.params;
+            let { user } = req.params
+            console.log(user);
             if(!user) return res.status(404).send({message:"missing dependency"})
             const cartItems = await CartModel.find({user:user});
             console.log(cartItems);
