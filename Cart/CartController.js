@@ -24,10 +24,8 @@ const CartController = {
      ListCartItem: async (req, res) => {
         try {
             let { user } = req.params
-            console.log(user);
             if(!user) return res.status(404).send({message:"missing dependency"})
             const cartItems = await CartModel.find({user:user});
-            console.log(cartItems);
             if (!cartItems || cartItems.length === 0) {
                 return res.status(200).send({ message: "Cart is empty", Data: [] });
             }
