@@ -1,6 +1,11 @@
  const {default:mongoose} = require("mongoose")
 
 const  AddressSchema = new mongoose.Schema({
+    user:{
+        type:mongoose.Types.ObjectId,
+        required:true,
+        ref:"users"
+    },
     FristName:{
         type:String,
         required:true

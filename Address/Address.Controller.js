@@ -16,7 +16,7 @@ const AddressController = {
     ListAddress: async (req, res) => {
         try {
             let  {user} = req.params
-            const result = await addressModel.find({user:user})
+            const result = await addressModel.find({user})
             if (!result) return res.status(500).send({ message: "somthing went wrong" })
             return res.status(200).send({ message: "sucsess", data: result })
         } catch (error) {
