@@ -5,7 +5,7 @@ const orderSchema = new mongoose.Schema({
         type:mongoose.Types.ObjectId,
         ref:"users"
     },
-    prodcut: {
+    product: {
         type: Array,
         required: true
     },
