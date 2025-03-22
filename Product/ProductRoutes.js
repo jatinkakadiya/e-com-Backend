@@ -1,7 +1,6 @@
 const express = require("express")
 const ProductController = require("./ProductController")
 const Uploaded = require("../middleware/Multer")
-const {Auth,RoleAuth} = require("../middleware/Auth")
 const produtrouter = express.Router()
 
 produtrouter.post("/create",Uploaded.single("Image"),ProductController.CreateProduct)
