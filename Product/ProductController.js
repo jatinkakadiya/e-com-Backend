@@ -101,7 +101,18 @@ const ProductController = {
             console.log(error);
             res.status(500).json({ message: "Something went wrong", error: error.message });
         }
+    },
+    UpdateProduct:async(req,res)=>{
+        try {
+            let  {id} = req.params
+            let result = await ProductModel.findByIdAndUpdate({_id:id},{...req.body})
+            if (!result) return res.status(500).send({ message: "somthing went wrong" })
+                return res.status(200).send({ message: "sucsess" })
+        } catch (error) {
+            console.log(error);
+        }
     }
+    
 };
 
 module.exports = ProductController;

@@ -7,5 +7,6 @@ produtrouter.post("/create",Uploaded.single("Image"),ProductController.CreatePro
 produtrouter.get("/list",ProductController.ListProduct)
 produtrouter.delete("/delete/:id",ProductController.DeleteProduct)
 produtrouter.get("/productsbyid/:id",ProductController.GetproductById)
+produtrouter.put("/update/:id",ProductController.UpdateProduct)
 
 module.exports =  produtrouter
