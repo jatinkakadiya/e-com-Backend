@@ -24,6 +24,12 @@ app.use(cors({
   credentials: true                // Allow cookies to be sent/received
 }));
 
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "http://localhost:5173");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  next();
+});
 
 ConnectDb()
 // ProductController.Insartmany()
@@ -36,7 +42,7 @@ app.use("/address",AddressRouter)
 app.use("/order",OrderRouter)
 app.use("/user",userRouter)
 // VariantController.InsatMany()
-const port = process.env.PORT || 8888; // Use the port provided by Render
+const port = process.env.PORT || 5000; // Use the port provided by Render
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
 });
