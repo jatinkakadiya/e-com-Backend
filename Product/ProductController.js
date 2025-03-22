@@ -14,9 +14,12 @@ const ProductController = {
 
 
             let { name, Sku, Description, color, size, Variant, price, orignalPrice, user } = req.body
+            console.log("body", req.body);
             if (!name || !Sku || !Description || !color || !size || !Variant || !price || !orignalPrice || !user) return res.status(404).send({ message: "missing dependecy" })
             const img = req.file.path
+            console.log("uplod img", img);
             console.log(img);
+
             if (!img) return res.status(404).send({ message: "img is not uplode" })
 
             if (typeof Variant === "string") {
@@ -28,6 +31,7 @@ const ProductController = {
                 return res.status(400).json({ error: "Variant must be an array" });
             }
             const reuslts = await cloudinary.uploader.upload(img)
+            console.log("cloudnaryimg",reuslts.url);
             await fs.unlinkSync(img)
 
             // const result = await ProductModel.create({ ...req.body, Image: reuslts.url, Variant: Variant })
@@ -37,7 +41,7 @@ const ProductController = {
             let colors = color.split(',')
             let sizes = size.split(',')
             const User = await userModel.findOne({ _id: user })
-            if(User.Role === "admin"){
+            if (User.Role === "admin") {
                 const product = new ProductModel({
                     name,
                     price,
@@ -49,11 +53,12 @@ const ProductController = {
                     Variant,
                     Image: reuslts.url  // Now correctly formatted
                 });
+                console.log("product",product);
                 await product.save();
                 console.log("create");
                 res.status(201).json({ message: "Product created successfully", product });
-            }else{
-                return res.status(401).send({message:"unothrese user"})
+            } else {
+                return res.status(401).send({ message: "unothrese user" })
             }
 
         } catch (error) {
